@@ -1,0 +1,9 @@
+<form [formGroup]="guideForm" (ngSubmit)="createGuide()">
+<label>User List</label><br>
+    <select formControlName="user">
+      <option *ngFor="let userItem of userList" [ngValue]="userItem">
+          {{ userItem.name }}
+        </option>
+    </select><br>
+  <button type="submit">Submit</button>
+</form>

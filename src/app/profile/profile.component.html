@@ -1,0 +1,43 @@
+<h1>{{User.username}} => {{User.id}}</h1>
+
+<hr>
+<h2>Update Profile</h2>
+<div *ngIf="User.username">
+  <form [formGroup]="profileForm" (ngSubmit)="saveForm()">
+    <label>First Name</label><br>
+    <input type="text" formControlName="first_name" [(ngModel)]="User.first_name"  /><br>
+
+    <label>Last Name</label><br>
+    <input type="text" formControlName="last_name" [(ngModel)]="User.last_name" /><br>
+
+     <label>City</label><br>
+    <input type="text" formControlName="city" [(ngModel)]="User.city" /><br>
+
+    <label>Birth Date</label><br>
+    <input type="date" formControlName="birthDate" [(ngModel)]="User.birthDate" /><br>
+
+    <label>Tourist</label>
+    <input type="checkbox" formControlName="is_tourist" [(ngModel)]="User.is_tourist"/><br>
+
+    <label>Guide</label>
+    <input type="checkbox" formControlName="is_guide" [(ngModel)]="User.is_guide" /><br>
+
+    <!--<input type="checkbox" formControlName="is_tourist" />Tourist<br>-->
+  <label>Sex</label><br>
+    <select formControlName="gender">
+      <option *ngFor="let gender of genders" [ngValue]="gender">
+          {{ gender.name }}
+        </option>
+    </select><br>
+    <!--<label>User Type</label><br>-->
+    <!--<select [formControlName]="userType">-->
+      <!--<option *ngFor="let type of userTypes" [ngValue]="userType">-->
+          <!--{{ type.name }}-->
+        <!--</option>-->
+    <!--</select><br>-->
+
+    <button type="submit">Update</button>
+  </form>
+
+  <div *ngIf="User.is_guide"><a routerLink="guide">Tourist Guide Panel</a></div>
+</div>

@@ -1,0 +1,37 @@
+<h2>Login</h2>
+<form [formGroup]="authForm" (ngSubmit)="loginForm()">
+    <label>Username</label><br>
+    <input type="text" formControlName="username"/><br>
+
+    <label>Password</label><br>
+    <input type="password" formControlName="password"/><br>
+
+    <button type="submit">
+      Login
+       <!--<span *ngIf="!registerMode">Login</span>-->
+      <!--<span *ngIf="registerMode">Register</span>-->
+    </button>
+  </form>
+  <hr>
+
+<h2>Register</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+    <label>Username</label><br>
+    <input type="text" formControlName="username"/><br>
+
+    <label>Password</label><br>
+    <input type="password" formControlName="password"/><br>
+
+    <label>User Type</label><br>
+    <select formControlName="userType">
+      <option *ngFor="let type of userTypes" [ngValue]="type">
+          {{ type.name }}
+        </option>
+    </select><br>
+
+    <button type="submit">Register</button>
+  </form>
+  <!--<span *ngIf="!registerMode" (click)="registerMode = true">Don't have an account? Register here.</span>-->
+  <!--<span *ngIf="registerMode" (click)="registerMode = false">Already have an account? Go to login.</span>-->
+
+
