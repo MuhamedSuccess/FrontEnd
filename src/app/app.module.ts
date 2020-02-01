@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { TripComponent } from './trip/trip.component';
 import {TripModule} from './trip/trip.module';
 import {ProfileComponent} from './profile/profile.component';
+import { UserModule } from './user/user.module';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', component: TripComponent}
@@ -25,7 +26,8 @@ const routes: Routes = [
     AuthModule,
     TripModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    UserModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
