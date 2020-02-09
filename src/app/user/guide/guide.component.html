@@ -1,7 +1,7 @@
-<form [formGroup]="guideForm" (ngSubmit)="createGuide()">
+<form [formGroup]="form" (ngSubmit)="createGuide()">
 <label>User List</label><br>
-    <select formControlName="user">
-      <option *ngFor="let userItem of userList" [ngValue]="userItem">
+    <select formControlName="userList">
+      <option *ngFor="let userItem of userList;  let i = index" [ngValue]="userList[i].id">
           {{ userItem.name }}
         </option>
     </select><br>

@@ -39,6 +39,10 @@ export class ApiService {
     return this.http.get(this.baseUrl + 'account/users/' + id + '/', {headers: this.headers});
   }
 
+  getUserProfile(id) {
+    return this.http.get(this.baseUrl + 'account/profile/' + id + '/', {headers: this.headers});
+  }
+
   check_user_login() {
       const mrToken = this.cookieService.get('mr-token');
       if (!mrToken) {
@@ -50,7 +54,15 @@ export class ApiService {
     }
 
   }
-  getAllUsers(){
+
+  check_user_exists() {
+    const mrToken = this.cookieService.get('mr-token');
+    if (!mrToken) {
+      return false;
+    } else {return true; }
+  }
+
+  getAllUsers() {
     return this.http.get(this.baseUrl + 'account/users/', {headers: this.headers});
   }
 
@@ -61,22 +73,30 @@ export class ApiService {
     const user: User = {
         id: localUser.id,
         username: localUser.username,
+        email: localUser.email,
         first_name: localUser.profile.first_name,
         last_name: localUser.profile.last_name,
         city: localUser.profile.city,
         birthDate: localUser.profile.birth_date,
         is_tourist: localUser.profile.is_tourist,
         is_guide: localUser.profile.is_guide,
+        is_admin: localUser.profile.is_admin,
         sex: localUser.profile.sex,
         token: ''
      };
     return user;
   }
 
+  // updateProfile(authData, id) {
+  //   const body = JSON.stringify(authData);
+  //   return this.http.put(this.baseUrl + 'account/profile/' + id + '/edit/', body, {headers: this.headers});
+  // }
   updateProfile(authData, id) {
     const body = JSON.stringify(authData);
     return this.http.put(this.baseUrl + 'account/profile/' + id + '/edit/', body, {headers: this.headers});
   }
+
+
   getAuthHeaders() {
     const token = this.cookieService.get('mr-token');
     return new HttpHeaders({

@@ -1,0 +1,28 @@
+.connexion {
+ margin-top: -67px;
+}
+
+input[type="text"] {
+    color: black;
+    opacity: 0.49;
+    font-size: 18px;
+}
+
+.selector{
+      width: 100%;
+    margin-left: 0px;
+    height: 38px;
+    color: golden;
+    font-weight: bold;
+      margin-bottom: 15px;
+}
+
+.register{
+  width: 100%;
+  padding: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    opacity: 1;
+    background-color: #1161EE;
+}

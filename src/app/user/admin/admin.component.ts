@@ -17,7 +17,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.user = this.apiService.check_user_login();
     console.log(this.user);
-    if (!this.user.username === "admin") {
+    if (!this.user.is_admin == true) {
       this.router.navigate(['../../trips']);
     }
   }

@@ -23,6 +23,8 @@ export class ProfileComponent implements OnInit {
 
    formData = {};
   profileForm = new FormGroup({
+    username: new FormControl(''),
+    email: new FormControl(''),
     first_name: new FormControl(''),
     last_name: new FormControl(''),
     city: new FormControl(''),
@@ -43,7 +45,7 @@ export class ProfileComponent implements OnInit {
     } else {
         this.loadLocalUser();
 
-        // console.log(this.User);
+
     }
   }
 
@@ -69,6 +71,7 @@ export class ProfileComponent implements OnInit {
     this.User = {
         id: localUser.id,
         username: localUser.username,
+        email: localUser.email,
         first_name: localUser.profile.first_name,
         last_name: localUser.profile.last_name,
         city: localUser.profile.city,
@@ -79,10 +82,12 @@ export class ProfileComponent implements OnInit {
         sex: localUser.profile.sex,
         token: ''
      };
-    // console.log(this.User);
+
   }
   saveForm() {
     this.formData = {
+      username: this.profileForm.value.username,
+      email: this.profileForm.value.email,
       first_name: this.profileForm.value.first_name,
       last_name: this.profileForm.value.last_name,
       birth_date: this.profileForm.value.birthDate,
@@ -92,6 +97,7 @@ export class ProfileComponent implements OnInit {
       sex: this.profileForm.value.gender.value,
     };
     console.log(this.formData);
+    // however you don not have to send all user's data because of the partial_update
     this.apiService.updateProfile(this.formData, this.User.id).subscribe(
       result => {
         console.log(result);

@@ -1,6 +1,7 @@
 export class User {
   id: any ;
   username: any;
+  email: any;
   first_name: any;
   last_name: any;
   birthDate: any;
@@ -14,6 +15,8 @@ export class User {
   constructor() {
     this.id = 0;
     this.first_name = '';
+    this.username = '';
+    this.email = '';
     this.last_name = '';
     this.is_tourist = false;
     this.is_guide = false;
