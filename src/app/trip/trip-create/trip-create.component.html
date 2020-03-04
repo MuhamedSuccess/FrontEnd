@@ -1,0 +1,139 @@
+<head>
+  <!-- Required meta tags-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Colorlib Templates">
+  <meta name="author" content="Colorlib">
+  <meta name="keywords" content="Colorlib Templates">
+
+  <!-- Title Page-->
+  <title>Au Register Forms by Colorlib</title>
+
+  <link href="/assets/css/file.css" rel="stylesheet">
+  <!-- Icons font CSS-->
+  <link href="/assets/colorlib-regform-2/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet"
+        media="all">
+  <link href="/assets/colorlib-regform-2/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+  <!-- Font special for pages-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+
+  <!-- Vendor CSS-->
+  <link href="/assets/colorlib-regform-2/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+  <link href="/assets/colorlib-regform-2/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+  <!-- Main CSS-->
+  <link href="/assets/colorlib-regform-2/css/main.css" rel="stylesheet" media="all">
+</head>
+
+
+<div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+  <div class="wrapper wrapper--w960">
+    <div class="card card-2">
+      <div class="card-heading"></div>
+      <div class="card-body">
+        <h2 class="title">Create Trip</h2>
+
+        <form  [formGroup]="tripForm" enctype='multipart/form-data' (ngSubmit)="onSubmit()">
+          <div class="input-group">
+            <input class="input--style-2" type="text" formControlName="name" placeholder="Name" name="name">
+          </div>
+
+
+          <div class="input-file-container">
+            <!--<input type="file"  id="image" #tripImage formControlName="image">-->
+            <input class="input-file" (change)="onFileChanged($event)" formControlName="image" id="my-file" type="file">
+            <label tabindex="0" for="my-file" class="input-file-trigger">Select a file...</label>
+          </div>
+          <p class="file-return"></p>
+          <div class="row">
+            <div class="col-2">
+              <div class="input-group">
+                <!--<input class="input&#45;&#45;style-2 js-datepicker" (change)="onDateChange($event)" formControlName="date" type="text" placeholder="Travel Date" name="date">-->
+                <input class="input--style-2" (change)="onDateChange($event)" formControlName="date" type="datetime-local" placeholder="Travel Date" name="date">
+                <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-2">
+              <div class="input-group">
+                <textarea class="form-control" formControlName="description" rows="4" placeholder="Trip Description" name="decription"></textarea>
+                <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row row-space">
+            <div class="col-2">
+              <div class="input-group">
+                <div class="rs-select2 js-select-simple select--no-search">
+                  <label for="TourPlans" class="col-md-10 col-form-label">Trip Plans</label>
+                  <select formControlName="tourPlanList" id="TourPlans">
+                    <option *ngFor="let plan of tourPlanList;  let i = index" [ngValue]="tourPlanList[i].id" [selected]="i==1">
+                      {{plan.name}}
+                    </option>
+                  </select>
+                  <div class="select-dropdown"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="input-group">
+                <div class="rs-select2 js-select-simple select--no-search">
+                  <label for="TourismType" class="col-md-10 col-form-label">Tourism Type</label>
+                  <select formControlName="tourism_type"  id="TourismType">
+                    <option *ngFor="let type of tourismTypeList;  let i = index" [ngValue]="tourismTypeList[i].id" [selected]="i==1">
+                      {{type.name}}
+                    </option>
+                  </select>
+                  <div class="select-dropdown"></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row row-space">
+            <div class="col-2">
+              <div class="input-group">
+                <div class="rs-select2 js-select-simple select--no-search">
+                  <label for="Guides" class="col-md-10 col-form-label">Guides</label>
+                  <select name="Guides" formControlName="guideList" id="Guides">
+                    <option *ngFor="let  guide of guideList;  let i = index"  [ngValue]="guideList[i].id" [selected]="i==1">
+                      {{guide.name}}
+                    </option>
+                  </select>
+                  <div class="select-dropdown"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-t-30">
+            <button class="btn btn--radius btn--green" type="submit">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Jquery JS-->
+<!--<script src="/assets/colorlib-regform-2/vendor/jquery/jquery.min.js"></script>-->
+<!--&lt;!&ndash; Vendor JS&ndash;&gt;-->
+<!--<script src="/assets/colorlib-regform-2/vendor/select2/select2.min.js"></script>-->
+<!--<script src="/assets/colorlib-regform-2/vendor/datepicker/moment.min.js"></script>-->
+<!--<script src="/assets/colorlib-regform-2/vendor/datepicker/daterangepicker.js"></script>-->
+
+<!--&lt;!&ndash; Main JS&ndash;&gt;-->
+<!--<script src="/assets/colorlib-regform-2/js/global.js"></script>-->
+
+
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+
+
+
+

@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {User} from '../../models/User';
-import {ApiService} from '../../api.service';
+import {AuthService} from '../auth.service';
+import {ProfileService} from "../../profile/profile.service";
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 
@@ -27,7 +28,8 @@ export class RegisterComponent implements OnInit {
   });
 
 
-  constructor(private apiService: ApiService,
+  constructor(private authService: AuthService,
+              private profileService: ProfileService,
               private cookieService: CookieService,
               private router: Router) {
   }
@@ -66,7 +68,7 @@ export class RegisterComponent implements OnInit {
 
     console.log(this.formData);
 
-    this.apiService.registerUser(this.formData).subscribe(
+    this.authService.registerUser(this.formData).subscribe(
       (user: User) => {
         this.updateProfile(user.id, this.formData);
         localStorage.setItem('user-session', JSON.stringify(user));
@@ -78,7 +80,7 @@ export class RegisterComponent implements OnInit {
   }
 
   updateProfile(id, data) {
-    this.apiService.updateProfile(data, id).subscribe(
+    this.profileService.updateProfile(data, id).subscribe(
       result => {
         console.log(result);
       },
@@ -92,7 +94,7 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.value.password
     };
     console.log(data);
-    this.apiService.loginUser(data).subscribe(
+    this.authService.loginUser(data).subscribe(
       result => {
         // console.log(this.authForm.value);
         console.log('User: ' + JSON.stringify(result));

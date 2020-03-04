@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../../api.service';
+import {UserService} from "../user.service";
+import {ProfileService} from "../../profile/profile.service";
 import {
   FormBuilder,
   FormGroup,
@@ -36,7 +38,9 @@ export class GuideComponent implements OnInit {
   users = [];
   user: User;
   constructor(private formBuilder: FormBuilder,
-              private apiService: ApiService) {
+              private userService: UserService,
+              private profileService: ProfileService
+              ) {
     this.form = this.formBuilder.group({
       userList: ['']
     });
@@ -49,6 +53,7 @@ export class GuideComponent implements OnInit {
     for (const user of users) {
       // const input = JSON.stringify(user);
       // this.users.push(user);
+
 
 
       if (user.profile.is_tourist === false && user.profile.is_guide === false) {
@@ -65,7 +70,7 @@ export class GuideComponent implements OnInit {
   }
   getAllUsers() {
 
-    this.apiService.getAllUsers().subscribe(
+    this.userService.getAllUsers().subscribe(
       result => {
         this.fillUsers(result);
         // console.log(result);
@@ -87,7 +92,7 @@ export class GuideComponent implements OnInit {
 
   updateProfile(user) {
      user.is_guide = true;
-     this.apiService.updateProfile(user, user.id).subscribe(
+     this.profileService.updateProfile(user, user.id).subscribe(
       result => {
         console.log(result);
       },
@@ -97,7 +102,7 @@ export class GuideComponent implements OnInit {
 
   getUserProfile(id) {
 
-    this.apiService.getUserProfile(id).subscribe(
+    this.profileService.getUserProfile(id).subscribe(
       (result: User) => {
 
         console.log(result);

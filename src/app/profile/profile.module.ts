@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import {AuthComponent} from '../auth/auth.component';
 import {Routes, RouterModule} from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 const routes: Routes = [
   {path: 'profile', component: ProfileComponent}
 ];
@@ -14,6 +14,7 @@ const routes: Routes = [
   imports: [
     RouterModule,
     ReactiveFormsModule,
+    FormsModule,
     RouterModule.forChild(routes),
     CommonModule
   ], exports: [

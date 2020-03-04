@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {User} from './models/User';
@@ -16,6 +16,8 @@ export class ApiService {
     Authorization: 'Token 6842dcf848c13e7882bc951b4dafaee8da0c6043'
     // 'Set-Cookie': 'HttpOnly;Secure;SameSite=Strict'
   });
+  @Output() loggedUser: EventEmitter<boolean> = new EventEmitter();
+
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
@@ -43,17 +45,17 @@ export class ApiService {
     return this.http.get(this.baseUrl + 'account/profile/' + id + '/', {headers: this.headers});
   }
 
-  check_user_login() {
-      const mrToken = this.cookieService.get('mr-token');
-      if (!mrToken) {
-      this.router.navigate(['/account']);
-    } else {
-        let user: User;
-        user = this.loadLocalUser();
-        return user;
-    }
-
-  }
+  // check_user_login() {
+  //     const mrToken = this.cookieService.get('mr-token');
+  //     if (!mrToken) {
+  //     this.router.navigate(['/account']);
+  //   } else {
+  //       let user: User;
+  //       user = this.loadLocalUser();
+  //       return user;
+  //   }
+  //
+  // }
 
   check_user_exists() {
     const mrToken = this.cookieService.get('mr-token');
@@ -62,30 +64,30 @@ export class ApiService {
     } else {return true; }
   }
 
-  getAllUsers() {
-    return this.http.get(this.baseUrl + 'account/users/', {headers: this.headers});
-  }
-
-   loadLocalUser() {
-    const localUser = JSON.parse(localStorage.getItem('current-user'));
-    // this.User = localUser;
-
-    const user: User = {
-        id: localUser.id,
-        username: localUser.username,
-        email: localUser.email,
-        first_name: localUser.profile.first_name,
-        last_name: localUser.profile.last_name,
-        city: localUser.profile.city,
-        birthDate: localUser.profile.birth_date,
-        is_tourist: localUser.profile.is_tourist,
-        is_guide: localUser.profile.is_guide,
-        is_admin: localUser.profile.is_admin,
-        sex: localUser.profile.sex,
-        token: ''
-     };
-    return user;
-  }
+  // getAllUsers() {
+  //   return this.http.get(this.baseUrl + 'account/users/', {headers: this.headers});
+  // }
+  //
+  //  loadLocalUser() {
+  //   const localUser = JSON.parse(localStorage.getItem('current-user'));
+  //   // this.User = localUser;
+  //
+  //   const user: User = {
+  //       id: localUser.id,
+  //       username: localUser.username,
+  //       email: localUser.email,
+  //       first_name: localUser.profile.first_name,
+  //       last_name: localUser.profile.last_name,
+  //       city: localUser.profile.city,
+  //       birthDate: localUser.profile.birth_date,
+  //       is_tourist: localUser.profile.is_tourist,
+  //       is_guide: localUser.profile.is_guide,
+  //       is_admin: localUser.profile.is_admin,
+  //       sex: localUser.profile.sex,
+  //       token: ''
+  //    };
+  //   return user;
+  // }
 
   // updateProfile(authData, id) {
   //   const body = JSON.stringify(authData);

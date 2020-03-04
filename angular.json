@@ -22,27 +22,15 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/assets/images/car-1.jpg",
-              "src/assets/images/car-2.jpg",
-              "src/assets/images/car-3.jpg",
-              "src/assets/images/car-4.jpg",
-              "src/assets/images/car-5.jpg",
-              "src/assets/images/car-6.jpg",
-              "src/assets/images/cover_bg_1.jpg"
-
-
+              "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/assets/fonts/nucleo-icons.eot",
-              "src/assets/fonts/nucleo-icons.svg",
-              "src/assets/fonts/nucleo-icons.ttf",
-              "src/assets/fonts/nucleo-icons.woff",
-              "src/assets/fonts/nucleo-icons.woff2"
+              "src/styles.css"
 
             ],
             "scripts": [
-
-
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/date.js"
             ]
           },
           "configurations": {
@@ -73,7 +61,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             }
           }
         },
@@ -103,7 +93,8 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.css"

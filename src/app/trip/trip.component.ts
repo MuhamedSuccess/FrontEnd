@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
+import {DynamicScriptLoaderServiceService} from './dynamic-script-loader-service.service';
 
 @Component({
   selector: 'app-trip',
@@ -11,18 +12,20 @@ import {Router} from '@angular/router';
 export class TripComponent implements OnInit {
 
   private trips: any = [];
+
   constructor(
     private apiservice: ApiService,
     private cookieService: CookieService,
-    private router: Router
-  ) { }
+    private router: Router,
+
+  ) {
+  }
 
   ngOnInit() {
-     const mr_token = this.cookieService.get('mr-token');
-     if (!mr_token) {
-      this.router.navigate(['/account']);
-    } else {
-       this.apiservice.getTrips().subscribe(
+
+
+
+    this.apiservice.getTrips().subscribe(
       data => {
         this.trips = data;
         console.log(data);
@@ -30,12 +33,26 @@ export class TripComponent implements OnInit {
         console.log(error);
       }
     );
-    }
+
+    //  const mr_token = this.cookieService.get('mr-token');
+    //  if (!mr_token) {
+    //   this.router.navigate(['/account']);
+    // } else {
+    //    this.apiservice.getTrips().subscribe(
+    //   data => {
+    //     this.trips = data;
+    //     console.log(data);
+    //   }, error => {
+    //     console.log(error);
+    //   }
+    // );
+    // }
   }
 
-  tripClicked(trip){
+  tripClicked(trip) {
     console.log(trip);
   }
+
   goProfile() {
     this.router.navigate(['profile']);
   }
@@ -43,7 +60,10 @@ export class TripComponent implements OnInit {
   logout() {
     this.cookieService.delete('mr-token');
     localStorage.removeItem('current-user');
-    this.router.navigate(['/account']);
+    this.router.navigate(['/auth']);
   }
+
+
+
 
 }

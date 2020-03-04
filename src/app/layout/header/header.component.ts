@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../../api.service";
+import {Component, Input, OnInit} from '@angular/core';
+import {AuthService} from '../../auth/auth.service';
+import {Subscription} from 'rxjs';
+import {DynamicScriptLoaderServiceService} from "../../trip/dynamic-script-loader-service.service";
 
 @Component({
   selector: 'app-header',
@@ -8,16 +10,32 @@ import {ApiService} from "../../api.service";
 })
 export class HeaderComponent implements OnInit {
 
-  status: boolean;
-  constructor(private apiService: ApiService) { }
-
-  ngOnInit() {
-    this.check_user_login();
+  @Input() registedMode;
+  isAuthenticated = false;
+  userSub: Subscription;
+  constructor(private authService: AuthService,
+              private dynamicScriptLoader: DynamicScriptLoaderServiceService) {
+    // this.isAuthenticated =  this.apiService.check_user_exists();
   }
 
-  check_user_login() {
-    this.status = this.apiService.check_user_exists();
-    console.log(this.status);
+ngOnInit() {
+
+
+
+    this.userSub = this.authService.current_user.subscribe(
+      user => {
+        this.isAuthenticated = !!user;
+        console.log(!user);
+        console.log(!!user);
+      }
+    );
+
   }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
+  }
+
+
 
 }

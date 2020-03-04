@@ -1,52 +1,47 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { CookieService } from 'ngx-cookie-service';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {CookieService} from 'ngx-cookie-service';
 import {AuthModule} from './auth/auth.module';
 import {Routes, RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
-import { TripComponent } from './trip/trip.component';
-import {TripModule} from './trip/trip.module';
-import {ProfileComponent} from './profile/profile.component';
-import { UserModule } from './user/user.module';
+import {UserModule} from './user/user.module';
 import {HeaderComponent} from './layout/header/header.component';
 import {ProfileModule} from './profile/profile.module';
-import {FooterComponent} from "./layout/footer/footer.component";
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { SubheaderComponent } from './layout/subheader/subheader.component';
-import { FeaturesComponent } from './layout/features/features.component';
-import { PopularDestinationComponent } from './layout/popular-destination/popular-destination.component';
-import { TestimonialComponent } from './layout/testimonial/testimonial.component';
+import {FooterComponent} from './layout/footer/footer.component';
+import {AngularFontAwesomeModule} from 'angular-font-awesome';
+import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
+import {SharedModule} from './shared/shared.module';
+import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
+import {LayoutModule} from './layout/layout.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
-
-
-const routes: Routes = [
-  {path: '', pathMatch: 'full', component: TripComponent}
-];
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent
   ],
   imports: [
     BrowserModule,
-    ProfileModule,
-    AuthModule,
-    TripModule,
     HttpClientModule,
     AppRoutingModule,
+    ProfileModule,
+    SharedModule,
+    LayoutModule,
     UserModule,
+    NgxDaterangepickerMd.forRoot(),
     AngularFontAwesomeModule,
-    RouterModule.forRoot(routes),
+    RouterModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-   exports: [
-    RouterModule
+  exports: [
+    SharedModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

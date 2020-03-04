@@ -7,11 +7,13 @@ import {SubheaderComponent} from '../layout/subheader/subheader.component';
 import {FeaturesComponent} from '../layout/features/features.component';
 import {PopularDestinationComponent} from '../layout/popular-destination/popular-destination.component';
 import {TestimonialComponent} from '../layout/testimonial/testimonial.component';
-
-const routes: Routes = [
-  {path: 'trips', component: TripComponent}
-];
-
+import { TripCreateComponent } from './trip-create/trip-create.component';
+import {SharedModule} from '../shared/shared.module';
+import { TripListComponent } from './trip-list/trip-list.component';
+import { TripStartComponent } from './trip-start/trip-start.component';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import {DynamicScriptLoaderServiceService} from './dynamic-script-loader-service.service';
+import {TripRoutingModule} from './trip-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,16 +21,23 @@ const routes: Routes = [
     SubheaderComponent,
     FeaturesComponent,
     PopularDestinationComponent,
-    TestimonialComponent
+    TestimonialComponent,
+    TripCreateComponent,
+    TripListComponent,
+    TripStartComponent
   ],
   imports: [
-    RouterModule.forChild(routes),
-    CommonModule
+    CommonModule,
+    RouterModule,
+    TripRoutingModule,
+    SharedModule,
+
   ], exports: [
-    RouterModule
+      RouterModule
   ],
   providers: [
-    ApiService
+    ApiService,
+    DynamicScriptLoaderServiceService
   ]
 })
 export class TripModule { }

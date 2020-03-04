@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {ApiService} from '../api.service';
+import {AuthService} from './auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import {User} from '../models/User';
@@ -27,8 +27,9 @@ export class AuthComponent implements OnInit {
   });
 
   formData = {};
-  registerMode = false;
-  constructor(private apiService: ApiService,
+  @Output() registerMode = new EventEmitter();
+
+  constructor(private authService: AuthService,
               private cookieService: CookieService,
               private router: Router
   ) { }
@@ -54,7 +55,7 @@ export class AuthComponent implements OnInit {
       password: this.authForm.value.password
     };
     console.log(data);
-    this.apiService.loginUser(data).subscribe(
+    this.authService.loginUser(data).subscribe(
       result => {
         // console.log(this.authForm.value);
         console.log('User: ' + JSON.stringify(result));
@@ -62,14 +63,16 @@ export class AuthComponent implements OnInit {
         this.getUser(JSON.parse(user).id);
 
         this.cookieService.set('mr-token', JSON.parse(user).token);
+        this.registerMode.emit(true);
         this.router.navigate(['/trips']);
+        // window.location.reload();
       },
       error => console.log(error)
     );
   }
 
   getUser(id) {
-    this.apiService.getUser(id).subscribe(
+    this.authService.getUser(id).subscribe(
       (user: User)  => {
         // this.User = user;
         localStorage.setItem('current-user', JSON.stringify(user));

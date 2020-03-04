@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {User} from '../models/User';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -14,14 +15,13 @@ export class ProfileComponent implements OnInit {
   User: User;
 
   // localUser: JSON;
-   genders = [
+  genders = [
     {name: 'male', value: 'M'},
     {name: 'female', value: 'F'},
   ];
 
 
-
-   formData = {};
+  formData = {};
   profileForm = new FormGroup({
     username: new FormControl(''),
     email: new FormControl(''),
@@ -39,11 +39,11 @@ export class ProfileComponent implements OnInit {
               private router: Router,
               private cookieService: CookieService) {
 
-        const mrToken = this.cookieService.get('mr-token');
-        if (!mrToken) {
+    const mrToken = this.cookieService.get('mr-token');
+    if (!mrToken) {
       this.router.navigate(['/account']);
     } else {
-        this.loadLocalUser();
+      this.loadLocalUser();
 
 
     }
@@ -55,13 +55,12 @@ export class ProfileComponent implements OnInit {
     if (!mrToken) {
       this.router.navigate(['/account']);
     } else {
-        this.loadLocalUser();
-        // console.log(this.User);
+      this.loadLocalUser();
+      // console.log(this.User);
     }
 
-     // console.log('Current User: ' + this.User);
+    // console.log('Current User: ' + this.User);
   }
-
 
 
   loadLocalUser() {
@@ -69,33 +68,41 @@ export class ProfileComponent implements OnInit {
     // this.User = localUser;
 
     this.User = {
-        id: localUser.id,
-        username: localUser.username,
-        email: localUser.email,
-        first_name: localUser.profile.first_name,
-        last_name: localUser.profile.last_name,
-        city: localUser.profile.city,
-        birthDate: localUser.profile.birth_date,
-        is_tourist: localUser.profile.is_tourist,
-        is_guide: localUser.profile.is_guide,
-        is_admin: localUser.profile.is_admin,
-        sex: localUser.profile.sex,
-        token: ''
-     };
+      id: localUser.id,
+      username: localUser.username,
+      email: localUser.email,
+      first_name: localUser.profile.first_name,
+      last_name: localUser.profile.last_name,
+      city: localUser.profile.city,
+      birthDate: localUser.profile.birth_date,
+      is_tourist: localUser.profile.is_tourist,
+      is_guide: localUser.profile.is_guide,
+      is_admin: localUser.profile.is_admin,
+      sex: localUser.profile.sex,
+      token: ''
+    };
 
   }
+
   saveForm() {
+
+    console.log(this.profileForm.value);
     this.formData = {
       username: this.profileForm.value.username,
       email: this.profileForm.value.email,
-      first_name: this.profileForm.value.first_name,
-      last_name: this.profileForm.value.last_name,
-      birth_date: this.profileForm.value.birthDate,
-      is_guide: this.profileForm.value.is_guide,
-      is_tourist: this.profileForm.value.is_tourist,
-      city: this.profileForm.value.city,
-      sex: this.profileForm.value.gender.value,
+      profile: {
+        first_name: this.profileForm.value.first_name,
+        last_name: this.profileForm.value.last_name,
+        birth_date: this.profileForm.value.birthDate,
+        is_guide: true,
+        city: this.profileForm.value.city,
+        sex: this.profileForm.value.gender.value,
+      }
+
     };
+
+    // is_guide: this.profileForm.value.profile.is_guide,
+    //   is_tourist: this.profileForm.value.profile.is_tourist,
     console.log(this.formData);
     // however you don not have to send all user's data because of the partial_update
     this.apiService.updateProfile(this.formData, this.User.id).subscribe(
