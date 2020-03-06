@@ -22,4 +22,7 @@ export class UserService {
   getAllUsers() {
     return this.http.get(this.baseUrl + 'account/users/', {headers: this.headers});
   }
+
+
+
 }
