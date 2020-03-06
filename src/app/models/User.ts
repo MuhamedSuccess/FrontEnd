@@ -12,7 +12,7 @@ export class User {
   sex: string;
 
   constructor(
-    public id: number, public username: string, public token: string
+    public id: number, public username: string, public avatar: string, public token: string
   ) {
 }
 
