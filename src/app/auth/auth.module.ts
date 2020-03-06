@@ -10,13 +10,15 @@ import {RegisterComponent} from './register/register.component';
 import {SharedModule} from '../shared/shared.module';
 import {TripStartComponent} from '../trip/trip-start/trip-start.component';
 import {TripCreateComponent} from '../trip/trip-create/trip-create.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
 
-  // {path: 'account', component: AuthComponent},
+  {path: '', redirectTo: '/auth', pathMatch: 'full'},
   {
     path: '', component: AuthComponent,
     children: [
+      {path: 'login', component: LoginComponent},
       {path: 'register', component: RegisterComponent},
       {path: 'logout', component: LogoutComponent}
     ]
@@ -28,7 +30,8 @@ const routes: Routes = [
   declarations: [
     AuthComponent,
     LogoutComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,

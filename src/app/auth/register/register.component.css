@@ -2,6 +2,13 @@
  margin-top: -67px;
 }
 
+img.bg-img {
+    display: block;
+    /*position: absolute;*/
+    margin-left: -15px;
+    height: 100%;
+}
+
 input[type="text"] {
     color: black;
     opacity: 0.49;
