@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
-import {AuthService} from "../auth/auth.service";
+import {AuthService} from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class TripService {
   });
   constructor( private http: HttpClient,
                private cookieService: CookieService,
-               private authService:AuthService,
+               private authService: AuthService,
                private router: Router) { }
 
 
@@ -27,7 +27,9 @@ export class TripService {
     return this.http.post(this.baseUrl + 'api/trip/', trip, {headers: this.authService.getAuthHeadersAndFormData()});
   }
 
-
+  getAllTrips() {
+    return this.http.get(this.baseTripUrl, {headers: this.authService.getAuthHeaders()});
+  }
    getAllTourPlans() {
     return this.http.get(this.baseUrl + 'api/tour-plan/', {headers: this.authService.getAuthHeaders()});
   }

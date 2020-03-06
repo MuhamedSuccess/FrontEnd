@@ -76,9 +76,9 @@ export class TripCreateComponent implements OnInit {
       image: new FormControl('', Validators.required),
       date: new FormControl('', Validators.required),
       days: new FormControl('', Validators.required),
-      guideList: new FormControl(this.guideList[0]),
-      tourism_type: new FormControl(this.tourPlanList[0]),
-      tourPlanList: new FormControl(this.tourPlanList[0]),
+      guide_list: new FormControl(this.guideList[0]),
+      tourism_type: new FormControl(this.tourismTypeList[0]),
+      tour_plan: new FormControl(this.tourPlanList[0]),
     });
 
 
@@ -102,9 +102,9 @@ export class TripCreateComponent implements OnInit {
     tripData.append('description', this.tripForm.value.description);
     tripData.append('trip_cover', this.selectedFile, this.selectedFile.name);
     tripData.append('date', this.tripForm.value.date);
-    tripData.append('guide', this.tripForm.value.guideList);
+    tripData.append('guide', this.tripForm.value.guide_list);
     tripData.append('tourism_type', this.tripForm.value.tourism_type);
-    tripData.append('trip_plan', this.tripForm.value.tourPlanList);
+    tripData.append('trip_plan', this.tripForm.value.tour_plan);
 
     console.log(JSON.stringify(tripData));
 

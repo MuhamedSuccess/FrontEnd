@@ -72,7 +72,7 @@
               <div class="input-group">
                 <div class="rs-select2 js-select-simple select--no-search">
                   <label for="TourPlans" class="col-md-10 col-form-label">Trip Plans</label>
-                  <select formControlName="tourPlanList" id="TourPlans">
+                  <select formControlName="tour_plan" id="TourPlans">
                     <option *ngFor="let plan of tourPlanList;  let i = index" [ngValue]="tourPlanList[i].id" [selected]="i==1">
                       {{plan.name}}
                     </option>
@@ -101,7 +101,7 @@
               <div class="input-group">
                 <div class="rs-select2 js-select-simple select--no-search">
                   <label for="Guides" class="col-md-10 col-form-label">Guides</label>
-                  <select name="Guides" formControlName="guideList" id="Guides">
+                  <select name="Guides" formControlName="guide_list" id="Guides">
                     <option *ngFor="let  guide of guideList;  let i = index"  [ngValue]="guideList[i].id" [selected]="i==1">
                       {{guide.name}}
                     </option>
