@@ -99,7 +99,7 @@ export class RegisterComponent implements OnInit {
         // console.log(this.authForm.value);
         console.log('User: ' + JSON.stringify(result));
         const user: string = JSON.stringify(result);
-        localStorage.setItem('current-user', user);
+        // localStorage.setItem('current-user', user);
         this.cookieService.set('mr-token', JSON.parse(user).token);
         this.router.navigate(['/trips']);
       },

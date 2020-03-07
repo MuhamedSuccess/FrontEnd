@@ -4,7 +4,7 @@ export class User {
   email: string;
   first_name: string;
   last_name: string;
-  birthDate: Date;
+  birth_date: Date;
   city: string;
   is_tourist: boolean;
   is_guide: boolean;

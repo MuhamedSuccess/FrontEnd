@@ -24,6 +24,12 @@ export class ProfileService {
     return this.http.post(this.baseUrl + 'account/profile/' + id + '/edit/', body, {headers: this.headers});
   }
 
+
+  updateUserProfile(userData, id) {
+    const body = JSON.stringify(userData);
+    return this.http.put(this.baseUrl + 'account/user-profile/' + id + '/edit/', body, {headers: this.headers});
+  }
+
   getUserProfile(id) {
     return this.http.get(this.baseUrl + 'account/profile/' + id + '/', {headers: this.headers});
   }

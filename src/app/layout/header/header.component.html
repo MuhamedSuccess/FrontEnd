@@ -3,176 +3,189 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
+  <!-- Facebook and Twitter integration -->
+  <meta property="og:title" content=""/>
+  <meta property="og:image" content=""/>
+  <meta property="og:url" content=""/>
+  <meta property="og:site_name" content=""/>
+  <meta property="og:description" content=""/>
+  <meta name="twitter:title" content=""/>
+  <meta name="twitter:image" content=""/>
+  <meta name="twitter:url" content=""/>
+  <meta name="twitter:card" content=""/>
 
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<link rel="shortcut icon" href="favicon.ico">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <link rel="shortcut icon" href="favicon.ico">
 
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="/assets/css/animate.css">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="/assets/css/icomoon.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="/assets/css/bootstrap.css">
-	<!-- Superfish -->
-	<link rel="stylesheet" href="/assets/css/superfish.css">
-	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="/assets/css/magnific-popup.css">
-	<!-- Date Picker -->
-	<link rel="stylesheet" href="/assets/css/bootstrap-datepicker.min.css">
-	<!-- CS Select -->
-	<link rel="stylesheet" href="/assets/css/cs-select.css">
-	<link rel="stylesheet" href="/assets/css/cs-skin-border.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 
-	<link rel="stylesheet" href="/assets/css/style.css">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="/assets/css/animate.css">
+  <!-- Icomoon Icon Fonts-->
+  <link rel="stylesheet" href="/assets/css/icomoon.css">
+  <!-- Bootstrap  -->
+  <link rel="stylesheet" href="/assets/css/bootstrap.css">
+  <!-- Superfish -->
+  <link rel="stylesheet" href="/assets/css/superfish.css">
+  <!-- Magnific Popup -->
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="/assets/css/bootstrap-datepicker.min.css">
+  <!-- CS Select -->
+  <link rel="stylesheet" href="/assets/css/cs-select.css">
+  <link rel="stylesheet" href="/assets/css/cs-skin-border.css">
+
+  <link rel="stylesheet" href="/assets/css/style.css">
 
 
 </head>
 
 
 <ng-container
-  *ngIf="isAuthenticated; then loggedIn; else loggedOut">
+  *ngIf="isAuthenticated && User; then loggedIn; else loggedOut">
 </ng-container>
 
 
-<ng-template  #loggedIn>
-  <header id="fh5co-header-section " class="sticky-banner" >
-			<div class="container">
-				<div class="nav-header">
-					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
-					<h1 id="fh5co-logo"><a routerLink="trips"><i class="icon-airplane"></i>Travel</a></h1>
-					<!-- START #fh5co-menu-wrap -->
-					<nav id="fh5co-menu-wrap" role="navigation">
-						<ul class="sf-menu" id="fh5co-primary-menu">
-							<li class="active"><a routerLink="trips">Home</a></li>
-							<li>
-								<a routerLink="trips" class="fh5co-sub-ddown">Vacations</a>
-								<ul class="fh5co-sub-menu">
-									<li><a href="#">Family</a></li>
-									<li><a href="#">CSS3 &amp; HTML5</a></li>
-									<li><a href="#">Angular JS</a></li>
-									<li><a href="#">Node JS</a></li>
-									<li><a href="#">Django &amp; Python</a></li>
-								</ul>
-							</li>
-							<li><a href="flight.html">Flights</a></li>
-							<li><a href="hotel.html">Hotel</a></li>
-							<li><a href="hotel.html">Contact</a></li>
-							<li><a routerLink="profile/">Profile</a></li>
+<ng-template #loggedIn>
+  <header id="fh5co-header-section " class="sticky-banner">
+    <div class="container">
+      <div class="nav-header">
+        <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+        <h1 id="fh5co-logo"><a routerLink="trips"><i class="icon-airplane"></i>Travel</a></h1>
+        <!-- START #fh5co-menu-wrap -->
+        <nav id="fh5co-menu-wrap" role="navigation">
+          <ul class="sf-menu" id="fh5co-primary-menu">
+            <li class="active"><a routerLink="trips">Home</a></li>
+            <li>
+              <a routerLink="trips" class="fh5co-sub-ddown">Vacations</a>
+              <ul class="fh5co-sub-menu">
+                <li><a href="#">Family</a></li>
+                <li><a href="#">CSS3 &amp; HTML5</a></li>
+                <li><a href="#">Angular JS</a></li>
+                <li><a href="#">Node JS</a></li>
+                <li><a href="#">Django &amp; Python</a></li>
+              </ul>
+            </li>
+            <li><a href="flight.html">Flights</a></li>
+            <li><a href="hotel.html">Hotel</a></li>
+            <li><a href="hotel.html">Contact</a></li>
+            <!--<li><a routerLink="profile/">Profile</a></li>-->
 
-              <li>
-								<a href="vacation.html" class="fh5co-sub-ddown">Account</a>
-								<ul class="fh5co-sub-menu">
-									<li><a routerLink="auth/logout">Logout</a></li>
-									<li><a href="#">Messages</a></li>
-								</ul>
-							</li>
+            <li>
+              <a href="vacation.html" class="fh5co-sub-ddown">Account</a>
+              <ul class="fh5co-sub-menu">
+                <li><a routerLink="auth/logout">Logout</a></li>
+                <li><a href="#">Messages</a></li>
+              </ul>
+            </li>
 
-              <!--<li class="dropdown">-->
-                    <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"-->
-                       <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--Dropdown link-->
-                    <!--</a>-->
-                    <!--<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">-->
-                        <!--<a class="dropdown-item" href="#">Action</a>-->
-                        <!--<a class="dropdown-item" href="#">Another action</a>-->
-                        <!--<a class="dropdown-item" href="#">Something else here</a>-->
-                    <!--</div>-->
-                <!--</li>-->
+            <li class="nav-item dropdown">
+              <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
+                <img id="avatar"
+                  [attr.src]="User.profile.avatar" class="avatar">{{User.username}}
+                <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a routerLink="profile" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a></li>
+                <li><a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a></li>
+                <li><a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a></li>
+                <li class="divider dropdown-divider"></li>
+                <li><a routerLink="auth/logout" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a>
+                </li>
+              </ul>
+            </li>
 
-						</ul>
-					</nav>
-				</div>
-			</div>
-		</header>
+            <!--<li class="dropdown">-->
+            <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"-->
+            <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+            <!--Dropdown link-->
+            <!--</a>-->
+            <!--<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">-->
+            <!--<a class="dropdown-item" href="#">Action</a>-->
+            <!--<a class="dropdown-item" href="#">Another action</a>-->
+            <!--<a class="dropdown-item" href="#">Something else here</a>-->
+            <!--</div>-->
+            <!--</li>-->
+
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
 </ng-template>
 
 
 <ng-template #loggedOut>
-  <header id="fh5co-header-section" class="sticky-banner" >
-			<div class="container">
-				<div class="nav-header">
-					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
-					<h1 id="fh5co-logo"><a routerLink="trips"><i class="icon-airplane"></i>Travel</a></h1>
-					<!-- START #fh5co-menu-wrap -->
-					<nav id="fh5co-menu-wrap" role="navigation">
-						<ul class="sf-menu" id="fh5co-primary-menu">
-							<li class="active"><a routerLink="trips">Home</a></li>
-							<li>
-								<a href="vacation.html" class="fh5co-sub-ddown">Vacations</a>
-								<ul class="fh5co-sub-menu">
-									<li><a href="#">Family</a></li>
-									<li><a href="#">CSS3 &amp; HTML5</a></li>
-									<li><a href="#">Angular JS</a></li>
-									<li><a href="#">Node JS</a></li>
-									<li><a href="#">Django &amp; Python</a></li>
-								</ul>
-							</li>
-							<li><a href="flight.html">Flights</a></li>
-							<li><a href="hotel.html">Hotel</a></li>
+  <header id="fh5co-header-section" class="sticky-banner">
+    <div class="container">
+      <div class="nav-header">
+        <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+        <h1 id="fh5co-logo"><a routerLink="trips"><i class="icon-airplane"></i>Travel</a></h1>
+        <!-- START #fh5co-menu-wrap -->
+        <nav id="fh5co-menu-wrap" role="navigation">
+          <ul class="sf-menu" id="fh5co-primary-menu">
+            <li class="active"><a routerLink="trips">Home</a></li>
+            <li>
+              <a href="vacation.html" class="fh5co-sub-ddown">Vacations</a>
+              <ul class="fh5co-sub-menu">
+                <li><a href="#">Family</a></li>
+                <li><a href="#">CSS3 &amp; HTML5</a></li>
+                <li><a href="#">Angular JS</a></li>
+                <li><a href="#">Node JS</a></li>
+                <li><a href="#">Django &amp; Python</a></li>
+              </ul>
+            </li>
+            <li><a href="flight.html">Flights</a></li>
+            <li><a href="hotel.html">Hotel</a></li>
 
-               <li><a routerLink="auth" class="glyphicon glyphicon-log-in">Login</a></li>
-              <li><a routerLink="auth/register" class="glyphicon glyphicon-user">Register</a></li>
+            <li><a routerLink="auth/login" class="glyphicon glyphicon-log-in">Login</a></li>
+            <li><a routerLink="auth/register" class="glyphicon glyphicon-user">Register</a></li>
 
-              <!--<li class="dropdown">-->
-                    <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"-->
-                       <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--Dropdown link-->
-                    <!--</a>-->
-                    <!--<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">-->
-                        <!--<a class="dropdown-item" href="#">Action</a>-->
-                        <!--<a class="dropdown-item" href="#">Another action</a>-->
-                        <!--<a class="dropdown-item" href="#">Something else here</a>-->
-                    <!--</div>-->
-                <!--</li>-->
+            <!--<li class="dropdown">-->
+            <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"-->
+            <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+            <!--Dropdown link-->
+            <!--</a>-->
+            <!--<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">-->
+            <!--<a class="dropdown-item" href="#">Action</a>-->
+            <!--<a class="dropdown-item" href="#">Another action</a>-->
+            <!--<a class="dropdown-item" href="#">Something else here</a>-->
+            <!--</div>-->
+            <!--</li>-->
 
-						</ul>
-					</nav>
-				</div>
-			</div>
-		</header>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
 
 </ng-template>
 
 
-
-
-
-
-
 <script src="/assets/js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="/assets/js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="/assets/js/bootstrap.min.js"></script>
-	<!-- Waypoints -->
-	<script src="/assets/js/jquery.waypoints.min.js"></script>
-	<script src="/assets/js/sticky.js"></script>
+<!-- jQuery Easing -->
+<script src="/assets/js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="/assets/js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="/assets/js/jquery.waypoints.min.js"></script>
+<script src="/assets/js/sticky.js"></script>
 
-	<!-- Stellar -->
-	<script src="/assets/js/jquery.stellar.min.js"></script>
-	<!-- Superfish -->
-	<script src="/assets/js/hoverIntent.js"></script>
-	<script src="/assets/js/superfish.js"></script>
-	<!-- Magnific Popup -->
-	<script src="/assets/js/jquery.magnific-popup.min.js"></script>
-	<script src="/assets/js/magnific-popup-options.js"></script>
-	<!-- Date Picker -->
-	<script src="/assets/js/bootstrap-datepicker.min.js"></script>
-	<!-- CS Select -->
-	<script src="/assets/js/classie.js"></script>
-	<script src="/assets/js/selectFx.js"></script>
+<!-- Stellar -->
+<script src="/assets/js/jquery.stellar.min.js"></script>
+<!-- Superfish -->
+<script src="/assets/js/hoverIntent.js"></script>
+<script src="/assets/js/superfish.js"></script>
+<!-- Magnific Popup -->
+<script src="/assets/js/jquery.magnific-popup.min.js"></script>
+<script src="/assets/js/magnific-popup-options.js"></script>
+<!-- Date Picker -->
+<script src="/assets/js/bootstrap-datepicker.min.js"></script>
+<!-- CS Select -->
+<script src="/assets/js/classie.js"></script>
+<script src="/assets/js/selectFx.js"></script>
 
-	<!-- Main JS -->
-	<script src="/assets/js/main.js"></script>
+<!-- Main JS -->
+<script src="/assets/js/main.js"></script>

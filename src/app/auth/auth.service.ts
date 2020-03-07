@@ -32,14 +32,38 @@ export class AuthService {
       tap(
         (data: User) => {
           console.log(data);
-          this.handleAuthentication(data.id, data.username, data.avatar, data.token);
+          // this.handleAuthentication(data.id, data.username, data.avatar, data.token);
+          this.loadLocalUser(data.id);
+
         }
       )
     );
   }
 
   loadLocalUser(id): Observable<User> {
+    // localStorage.setItem('current-user', JSON.stringify(localUser));
+
     // const localUser = JSON.parse(localStorage.getItem('user-session'));
+
+    // const user: User = {
+    //       id: localUser.id,
+    //       username: localUser.username,
+    //       email: localUser.email,
+    //       first_name: localUser.profile.first_name,
+    //       last_name: localUser.profile.last_name,
+    //       city: localUser.profile.city,
+    //       birthDate: localUser.profile.birth_date,
+    //       is_tourist: localUser.profile.is_tourist,
+    //       is_guide: localUser.profile.is_guide,
+    //       is_admin: localUser.profile.is_admin,
+    //       sex: localUser.profile.sex,
+    //       avatar: localUser.avatar,
+    //       token: ''
+    //     };
+    //
+    // this.current_user.next(user);
+
+
 
     let sub: Subscription;
     let localUser;
@@ -50,23 +74,25 @@ export class AuthService {
         console.log(localUser);
         console.log(localUser.id);
 
-        const user: User = {
-          id: localUser.id,
-          username: localUser.username,
-          email: localUser.email,
-          first_name: localUser.profile.first_name,
-          last_name: localUser.profile.last_name,
-          city: localUser.profile.city,
-          birthDate: localUser.profile.birth_date,
-          is_tourist: localUser.profile.is_tourist,
-          is_guide: localUser.profile.is_guide,
-          is_admin: localUser.profile.is_admin,
-          sex: localUser.profile.sex,
-          avatar: localUser.avatar,
-          token: ''
-        };
+        // const user: User = {
+        //   id: localUser.id,
+        //   username: localUser.username,
+        //   email: localUser.email,
+        //   first_name: localUser.profile.first_name,
+        //   last_name: localUser.profile.last_name,
+        //   city: localUser.profile.city,
+        //   birthDate: localUser.profile.birth_date,
+        //   is_tourist: localUser.profile.is_tourist,
+        //   is_guide: localUser.profile.is_guide,
+        //   is_admin: localUser.profile.is_admin,
+        //   sex: localUser.profile.sex,
+        //   avatar: localUser.avatar,
+        //   token: ''
+        // };
 
-        this.current_user.next(user);
+        this.current_user.next(localUser);
+        localStorage.setItem('current-user', JSON.stringify(localUser));
+        console.log(this.current_user);
 
       },
       error => {
@@ -84,9 +110,10 @@ export class AuthService {
   logout() {
 
     this.current_user.next(null);
-    this.router.navigate(['/auth/login']);
     this.cookieService.delete('mr-token');
     localStorage.removeItem('current-user');
+    this.router.navigate(['/auth/login']);
+
   }
 
   handleAuthentication(userId, username, avatar, token) {
@@ -112,26 +139,49 @@ export class AuthService {
   }
 
   autoLogin() {
-    const userData: {
-      id: number,
-      username: string,
-      avatar: string,
-      token: string
-    } = JSON.parse(localStorage.getItem('userData'));
 
-    if (!userData) {
+    const localUser = JSON.parse(localStorage.getItem('current-user'));
+
+    if (!localUser) {
       return;
     }
 
-    const loadedUser = new User(
-      userData.id,
-      userData.username,
-      userData.avatar,
-      userData.token
-    );
+    const user: User = {
+          id: localUser.id,
+          username: localUser.username,
+          email: localUser.email,
+          first_name: localUser.profile.first_name,
+          last_name: localUser.profile.last_name,
+          city: localUser.profile.city,
+          birth_date: localUser.profile.birth_date,
+          is_tourist: localUser.profile.is_tourist,
+          is_guide: localUser.profile.is_guide,
+          is_admin: localUser.profile.is_admin,
+          sex: localUser.profile.sex,
+          avatar: localUser.avatar,
+          token: ''
+        };
 
-    if (loadedUser.token) {
-      this.current_user.next(loadedUser);
+
+    // const userData: {
+    //   id: number,
+    //   username: string,
+    //   avatar: string,
+    //   token: string
+    // } = JSON.parse(localStorage.getItem('userData'));
+
+
+
+    // const loadedUser = new User(
+    //   userData.id,
+    //   userData.username,
+    //   userData.avatar,
+    //   userData.token
+    // );
+
+    // this.current_user.next(loadedUser);
+    if (localUser.username) {
+      this.current_user.next(localUser);
     }
 
   }
@@ -141,7 +191,8 @@ export class AuthService {
     return this.http.post(this.baseUrl + 'account/users/', body, {headers: this.headers}).pipe(
       tap(
         (data: User) => {
-          this.handleAuthentication(data.id, data.username, data.avatar, data.token);
+          this.loadLocalUser(data.id);
+          // this.handleAuthentication(data.id, data.username, data.avatar, data.token);
         }
       )
     );

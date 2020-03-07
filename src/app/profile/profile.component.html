@@ -40,6 +40,18 @@
       <div class="row text-white">
         <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
           <h1 class="display-4 py-2 text-truncate">{{User.username}}</h1>
+          <div class="row">
+            <div class="col-md-12">
+              <img [attr.src]="User.profile.avatar" class="avatar img-responsive img-circle">
+            </div>
+            <div class="col-md-12 upload">
+              <label for="image">Upload photo</label>
+              <input type="file" class="form-control-file file-upload center-block"
+                     (change)="onFileChanged($event)"
+                     [(ngModel)] = "User.profile.avatar"
+                     name="image" id="image">
+            </div>
+          </div>
           <div class="px-2" *ngIf="User.username" id="edit-profile">
             <form [formGroup]="profileForm" (ngSubmit)="saveForm()" class="justify-content-center">
 
@@ -53,20 +65,26 @@
               </div>
               <div class="form-group">
                 <label class="sr-only">First Name</label>
-                <input type="text" formControlName="first_name" [(ngModel)]="User.first_name" class="form-control" placeholder="first name">
+                <input type="text" formControlName="first_name" [(ngModel)]="User.profile.first_name" class="form-control" placeholder="first name">
               </div>
               <div class="form-group">
                 <label class="sr-only">Last Name</label>
-                <input type="text" formControlName="last_name" [(ngModel)]="User.last_name" class="form-control" placeholder="last name">
+                <input type="text" formControlName="last_name" [(ngModel)]="User.profile.last_name" class="form-control" placeholder="last name">
               </div>
               <div class="form-group">
                 <label class="sr-only">City</label>
-                <input type="text" formControlName="city" [(ngModel)]="User.city"  class="form-control" placeholder="city">
+                <input type="text" formControlName="city" [(ngModel)]="User.profile.city"  class="form-control" placeholder="city">
               </div>
 
               <div class="form-group">
+                <label class="sr-only">Avatar</label>
+                <input type="text" formControlName="city" [(ngModel)]="User.profile.city"  class="form-control" placeholder="city">
+              </div>
+
+
+              <div class="form-group">
                 <label class="sr-only">Birth Date</label>
-                <input type="date" formControlName="birthDate" [(ngModel)]="User.birthDate" class="form-control" placeholder="birth date">
+                <input type="date" formControlName="birthDate" [(ngModel)]="User.profile.birth_date" class="form-control" placeholder="birth date">
               </div>
 
               <!--<div class="form-group">
