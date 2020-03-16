@@ -7,8 +7,13 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn" *ngFor="let trip of trips">
-						<div href="#"><img [src]="trip.trip_cover"  alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+					<div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn"
+               *ngFor="let trip of trips; let id =index"
+               (click)="goDetails(id)"
+          >
+						<div >
+              <a>
+              <img [src]="trip.trip_cover"  alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
 							<div class="desc">
 								<span></span>
 								<h3>{{trip.name}}</h3>
@@ -16,6 +21,7 @@
 								<span class="price">{{trip.cost | currency}}</span>
 								<a class="btn btn-primary btn-outline" href="#">Book Now <i class="icon-arrow-right22"></i></a>
 							</div>
+              </a>
 						</div>
 					</div>
 

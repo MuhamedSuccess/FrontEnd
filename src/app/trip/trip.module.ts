@@ -14,6 +14,7 @@ import { TripStartComponent } from './trip-start/trip-start.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import {DynamicScriptLoaderServiceService} from './dynamic-script-loader-service.service';
 import {TripRoutingModule} from './trip-routing.module';
+import { TripDetailsComponent } from './trip-details/trip-details.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {TripRoutingModule} from './trip-routing.module';
     TestimonialComponent,
     TripCreateComponent,
     TripListComponent,
-    TripStartComponent
+    TripStartComponent,
+    TripDetailsComponent
   ],
   imports: [
     CommonModule,

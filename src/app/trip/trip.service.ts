@@ -30,6 +30,11 @@ export class TripService {
   getAllTrips() {
     return this.http.get(this.baseTripUrl, {headers: this.authService.getAuthHeaders()});
   }
+
+  getTrip(id) {
+    return this.http.get(this.baseTripUrl + id + '/', {headers: this.authService.getAuthHeaders()});
+  }
+
    getAllTourPlans() {
     return this.http.get(this.baseUrl + 'api/tour-plan/', {headers: this.authService.getAuthHeaders()});
   }
