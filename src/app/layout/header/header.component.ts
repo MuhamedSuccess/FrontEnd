@@ -11,13 +11,15 @@ import {User} from '../../models/User';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-   registedMode;
- isAuthenticated = false;
+  registedMode;
+  isAuthenticated = false;
   userSub: Subscription;
   username = '';
   // avatar  = "http://127.0.0.1:8000/media/images/41060515.jpg";
   avatar: string;
   User: User;
+  Hidden = false;
+
   constructor(private authService: AuthService,
               private cdRef: ChangeDetectorRef,
               private dynamicScriptLoader: DynamicScriptLoaderServiceService) {
@@ -44,7 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
-ngOnInit() {
+  ngOnInit() {
 
     this.userSub = this.authService.current_user.subscribe(
       (user) => {
@@ -67,9 +69,23 @@ ngOnInit() {
     // console.log(this.User);
 
 
-
   }
 
+  // checkDisplay(){
+  //   if(this.User.profile.is_admin == false){
+  //     return false;
+  //   }else if(this.isAuthenticated){
+  //     return true;
+  //   }else{
+  //     return true;
+  //   }
+  // }
+
+  // checkDisplay(hidden) {
+  //   if (hidden == true) {
+  //     this.Hidden = true;
+  //   }
+  // }
 
 //   ngAfterViewChecked() {
 //
@@ -96,7 +112,6 @@ ngOnInit() {
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }
-
 
 
 }
