@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   formData = {};
   profileForm = new FormGroup({
     username: new FormControl(''),
+    avatar: new FormControl(''),
     email: new FormControl(''),
     first_name: new FormControl(''),
     last_name: new FormControl(''),
@@ -61,12 +62,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+
+
+
     const mrToken = this.cookieService.get('mr-token');
     if (!mrToken) {
       this.router.navigate(['/account']);
     } else {
-      this.loadLocalUser();
-      if (this.User.avatar) {
+
+        this.loadLocalUser();
+
+        if (this.User.avatar) {
         this.avatar = this.User.avatar;
       } else {
         this.avatar = 'https://previews.123rf.com/images/salamatik/salamatik1801/salamatik180100019/92979836-profile-anonymous-face-icon-gray-silhouette-person-male-default-avatar-photo-placeholder-isolated-on.jpg';
@@ -92,19 +98,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
   saveForm() {
 
     console.log(this.profileForm.value);
-    this.formData = {
-      username: this.profileForm.value.username,
-      email: this.profileForm.value.email,
-      profile: {
-        first_name: this.profileForm.value.first_name,
-        last_name: this.profileForm.value.last_name,
-        birth_date: this.profileForm.value.birthDate,
-        is_guide: true,
-        city: this.profileForm.value.city,
-        sex: this.profileForm.value.gender.value,
-      },
-
-    };
+    // this.formData = {
+    //   username: this.profileForm.value.username,
+    //   email: this.profileForm.value.email,
+    //   profile: {
+    //     first_name: this.profileForm.value.first_name,
+    //     last_name: this.profileForm.value.last_name,
+    //     birth_date: this.profileForm.value.birthDate,
+    //     is_guide: true,
+    //     city: this.profileForm.value.city,
+    //     sex: this.profileForm.value.gender.value,
+    //   },
+    //
+    // };
 
     // is_guide: this.profileForm.value.profile.is_guide,
     //   is_tourist: this.profileForm.value.profile.is_tourist,
@@ -128,33 +134,32 @@ export class ProfileComponent implements OnInit, OnDestroy {
       error => console.log(error)
     );
 
-    profileSub = this.profileService.updateUserProfile({
-      first_name: this.profileForm.value.first_name,
-      last_name: this.profileForm.value.last_name,
-      birth_date: this.profileForm.value.birthDate,
-      is_guide: true,
-      city: this.profileForm.value.city,
-      sex: this.profileForm.value.gender.value,
-    }, this.User.id).subscribe(
+
+    const profileData = new FormData();
+    profileData.append('first_name', this.profileForm.value.first_name);
+    profileData.append('last_name', this.profileForm.value.last_name);
+    profileData.append('avatar', this.selectedFile, this.selectedFile.name);
+    profileData.append('birth_date', this.profileForm.value.birth_date);
+    profileData.append('is_guide', this.profileForm.value.is_guide);
+    profileData.append('sex', this.profileForm.value.sex);
+
+    console.log(JSON.stringify(profileData) );
+
+    profileSub = this.profileService.updateUserProfile(profileData, this.User.id).subscribe(
       (result: User) => {
         console.log(result);
-        // this.updatedUser.first_name = result.first_name;
-        // this.updatedUser.last_name = result.last_name;
-        // this.updatedUser.birth_date = result.birth_date;
-        // this.updatedUser.is_guide = result.is_guide;
-        // this.updatedUser.city = result.city;
-        // this.updatedUser.sex = result.sex;
 
         flag = flag + 1;
         this.Score = this.Score + 1;
-        this.applyUpdate(this.User.id);
+        this.applyUpdate(result.id);
 
       },
       error => console.log(error)
     );
 
 
-    // if (this.Score == 2) {
+    // this.applyUpdate(this.User.id);
+    // if (this.Score === 2) {
     //   // this.authService.current_user.next(this.updatedUser);
     //   this.applyUpdate(this.User.id);
     // }
@@ -163,14 +168,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
 
+
   applyUpdate(id) {
-    this.userSub = this.authService.loadLocalUser(id).subscribe(
-      (user: User) => {
-        console.log(user);
-        this.authService.current_user.next(user);
-        console.log(this.authService.current_user);
+
+    this.authService.getUser(id).subscribe(
+      (data: User) => {
+        this.authService.current_user.next(data);
+        localStorage.setItem('current-user', JSON.stringify(data));
       }
     );
+
+
+    // this.userSub = this.authService.loadLocalUser(id).subscribe(
+    //   (user: User) => {
+    //     console.log(user);
+    //     this.authService.current_user.next(user);
+    //     console.log(this.authService.current_user);
+    //   }
+    // );
   }
 
 
@@ -179,13 +194,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     console.log(this.selectedFile.name);
     // this.User.avatar = this.selectedFile.name;
 
-    if (event.target.files && event.target.files[0]) {
-            var reader = new FileReader();
-            reader.onload = (event: any) => {
-                this.User.profile.avatar = event.target.result;
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        }
+    // if (event.target.files && event.target.files[0]) {
+    //         const reader = new FileReader();
+    //         reader.onload = (event: any) => {
+    //             // this.User.profile.avatar = event.target.result;
+    //
+    //             console.log(this.User.profile.avatar);
+    //         };
+    //         reader.readAsDataURL(event.target.files[0]);
+    //     }
 
   }
 
@@ -194,5 +211,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // unsubscribe to ensure no memory leaks
     this.userSub.unsubscribe();
   }
+
+  // first_name: this.profileForm.value.first_name,
+    //   last_name: this.profileForm.value.last_name,
+    //   avatar: this.User.profile.avatar,
+    //   birth_date: this.profileForm.value.birthDate,
+    //   is_guide: true,
+    //   city: this.profileForm.value.city,
+    //   sex: this.profileForm.value.gender.value,
 
 }

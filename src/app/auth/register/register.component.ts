@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../models/User';
 import {AuthService} from '../auth.service';
-import {ProfileService} from "../../profile/profile.service";
+import {ProfileService} from '../../profile/profile.service';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 
@@ -19,11 +19,13 @@ export class RegisterComponent implements OnInit {
   ];
 
   formData = {};
+  // Password expression. Password must be between 4 and 8 digits long and include at least one numeric digit.
+
   registerForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+    username: new FormControl('', [Validators.required, Validators.pattern('[^A-Za-z0-9]\n')]),
+    password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*\\d).{4,8}$\n')]),
     passwordConfirm: new FormControl(''),
-    email: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email]),
     userType: new FormControl(this.userTypes[0]),
   });
 
@@ -69,13 +71,36 @@ export class RegisterComponent implements OnInit {
     console.log(this.formData);
 
     this.authService.registerUser(this.formData).subscribe(
-      (user: User) => {
+      (user: any) => {
         this.updateProfile(user.id, this.formData);
         localStorage.setItem('user-session', JSON.stringify(user));
         console.log(user);
         this.logUserFromRegister();
       },
-      error => console.log(error)
+      (error: any) => {
+
+        const errorMessage = JSON.parse(error);
+        if (errorMessage.username) {
+          for (const username_error of errorMessage.username) {
+            document.getElementById('username_error').innerHTML = username_error + '<br>';
+          }
+        }
+        // } else  if (errorMessage.password) {
+        //   for (const pass_error of errorMessage.password) {
+        //       document.getElementById('pass1_error').innerHTML = username_error + '<br>';
+        //     }
+        // }
+        // console.log(error);
+        // console.log(error.username);
+        // if (error.username) {
+        //     for (const username_error of error.username) {
+        //       document.getElementById('username_error').innerHTML = username_error + '<br>';
+        //     }
+        //
+        //   }
+
+
+      }
     );
   }
 

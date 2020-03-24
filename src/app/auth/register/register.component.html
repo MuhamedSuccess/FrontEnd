@@ -20,38 +20,45 @@
       <form class="contact-form" [formGroup]="registerForm" (ngSubmit)="registerUser()">
         <label>USERNAME</label>
         <input placeholder="" type="text" formControlName="username">
+        <span class="help-block" *ngIf="!registerForm.get('username').valid && registerForm.get('username').touched" id="username_error">enter a valid username</span>
 
-      <label>E-MAIL</label>
-          <input placeholder="" type="text" formControlName="email">
+        <label>E-MAIL</label>
+        <input placeholder=""
+               type="text"
+               formControlName="email"
+          >
+        <span class="help-block" *ngIf="!registerForm.get('email').valid && registerForm.get('email').touched" id="email_error">enter a valid email</span>
+
         <label>PASSWORD</label>
         <input placeholder="" type="password" formControlName="password">
+        <span class="help-block" *ngIf="!registerForm.get('password').valid && registerForm.get('password').touched" id="pass1_error">enter a valid password</span>
 
         <label>CONFIRM PASSWORD</label>
         <input placeholder="" type="password" formControlName="passwordConfirm">
 
 
-          <label>User Type</label><br>
-          <select formControlName="userType" class="selector">
-            <option *ngFor="let type of userTypes" [ngValue]="type">
-              {{ type.name }}
-            </option>
-          </select><br>
+        <label>User Type</label><br>
+        <select formControlName="userType" class="selector">
+          <option *ngFor="let type of userTypes" [ngValue]="type">
+            {{ type.name }}
+          </option>
+        </select><br>
 
         <!--<div class="check">-->
-          <!--<label>-->
-            <!--<input id="check" type="checkbox" class="checkbox">-->
-            <!--<svg xmlns="http://www.w3.org/2000/svg" width="26px" height="23px">-->
-              <!--<path class="path-back"-->
-                    <!--d="M1.5,6.021V2.451C1.5,2.009,1.646,1.5,2.3,1.5h18.4c0.442,0,0.8,0.358,0.8,0.801v18.398c0,0.442-0.357,0.801-0.8,0.801H2.3c-0.442,0-0.8-0.358-0.8-0.801V6"/>-->
-              <!--<path class="path-moving"-->
-                    <!--d="M24.192,3.813L11.818,16.188L1.5,6.021V2.451C1.5,2.009,1.646,1.5,2.3,1.5h18.4c0.442,0,0.8,0.358,0.8,0.801v18.398c0,0.442-0.357,0.801-0.8,0.801H2.3c-0.442,0-0.8-0.358-0.8-0.801V6"/>-->
-            <!--</svg>-->
-          <!--</label>-->
-          <!--<h3>I agree</h3>-->
+        <!--<label>-->
+        <!--<input id="check" type="checkbox" class="checkbox">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" width="26px" height="23px">-->
+        <!--<path class="path-back"-->
+        <!--d="M1.5,6.021V2.451C1.5,2.009,1.646,1.5,2.3,1.5h18.4c0.442,0,0.8,0.358,0.8,0.801v18.398c0,0.442-0.357,0.801-0.8,0.801H2.3c-0.442,0-0.8-0.358-0.8-0.801V6"/>-->
+        <!--<path class="path-moving"-->
+        <!--d="M24.192,3.813L11.818,16.188L1.5,6.021V2.451C1.5,2.009,1.646,1.5,2.3,1.5h18.4c0.442,0,0.8,0.358,0.8,0.801v18.398c0,0.442-0.357,0.801-0.8,0.801H2.3c-0.442,0-0.8-0.358-0.8-0.801V6"/>-->
+        <!--</svg>-->
+        <!--</label>-->
+        <!--<h3>I agree</h3>-->
         <!--</div>-->
 
         <!--<input class="submit" value="SIGN UP" type="submit">-->
-        <button class="register"  type="submit">Register</button>
+        <button class="register" type="submit">Register</button>
       </form>
 
       <!--<hr>-->

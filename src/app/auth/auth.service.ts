@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import {User} from '../models/User';
-import {BehaviorSubject, Observable, Subject, Subscription} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {BehaviorSubject, Observable, Subject, Subscription, throwError} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,7 @@ export class AuthService {
           // this.handleAuthentication(data.id, data.username, data.avatar, data.token);
           this.loadLocalUser(data.id);
 
+
         }
       )
     );
@@ -64,7 +65,6 @@ export class AuthService {
     // this.current_user.next(user);
 
 
-
     let sub: Subscription;
     let localUser;
     sub = this.getUser(id).subscribe(
@@ -91,12 +91,13 @@ export class AuthService {
         // };
 
         this.current_user.next(localUser);
+        this.navigateUser();
         localStorage.setItem('current-user', JSON.stringify(localUser));
         console.log(this.current_user);
 
       },
       error => {
-        console.log(error);
+        // console.log(error);
         localUser = null;
       }
     );
@@ -124,13 +125,13 @@ export class AuthService {
 
   navigateUser() {
     this.current_user.subscribe(
-      user => {
-        if (user.is_admin == true) {
+      (user: any) => {
+        if (user.profile.is_admin == true) {
           console.log(true);
           this.router.navigate(['/admin']);
-        } else if (user.is_guide == true) {
+        } else if (user.profile.is_guide == true) {
           // navigate him to guide profile
-
+          this.router.navigate(['/trips']);
         } else {
           this.router.navigate(['/trips']);
         }
@@ -147,20 +148,20 @@ export class AuthService {
     }
 
     const user: User = {
-          id: localUser.id,
-          username: localUser.username,
-          email: localUser.email,
-          first_name: localUser.profile.first_name,
-          last_name: localUser.profile.last_name,
-          city: localUser.profile.city,
-          birth_date: localUser.profile.birth_date,
-          is_tourist: localUser.profile.is_tourist,
-          is_guide: localUser.profile.is_guide,
-          is_admin: localUser.profile.is_admin,
-          sex: localUser.profile.sex,
-          avatar: localUser.avatar,
-          token: ''
-        };
+      id: localUser.id,
+      username: localUser.username,
+      email: localUser.email,
+      first_name: localUser.profile.first_name,
+      last_name: localUser.profile.last_name,
+      city: localUser.profile.city,
+      birth_date: localUser.profile.birth_date,
+      is_tourist: localUser.profile.is_tourist,
+      is_guide: localUser.profile.is_guide,
+      is_admin: localUser.profile.is_admin,
+      sex: localUser.profile.sex,
+      avatar: localUser.avatar,
+      token: ''
+    };
 
 
     // const userData: {
@@ -169,7 +170,6 @@ export class AuthService {
     //   avatar: string,
     //   token: string
     // } = JSON.parse(localStorage.getItem('userData'));
-
 
 
     // const loadedUser = new User(
@@ -188,14 +188,44 @@ export class AuthService {
 
   registerUser(authData) {
     const body = JSON.stringify(authData);
-    return this.http.post(this.baseUrl + 'account/users/', body, {headers: this.headers}).pipe(
-      tap(
-        (data: User) => {
-          this.loadLocalUser(data.id);
-          // this.handleAuthentication(data.id, data.username, data.avatar, data.token);
-        }
-      )
-    );
+    return this.http.post(this.baseUrl + 'account/users/', body, {headers: this.headers})
+      .pipe(
+        catchError(this.handleUser),
+        tap(
+          (data: User) => {
+            this.loadLocalUser(data.id);
+            // this.handleAuthentication(data.id, data.username, data.avatar, data.token);
+          }
+        )
+      );
+  }
+
+  private handleUser(errorRes: HttpErrorResponse) {
+    // const errorMessage = 'An unknown error occurred!';
+
+  // const errorMessage = {
+  //   username: [],
+  //   password: []
+  // };
+
+    console.log('service error');
+
+
+    const errorObject = Object.assign({}, errorRes.error);
+    const result = JSON.stringify(errorObject);
+
+    console.log(errorRes.error.username);
+
+    console.log(result);
+    return throwError(result);
+
+    // if (!errorRes.error || !errorRes.error.error) {
+    //   return throwError(errorMessage);
+    // }
+
+
+
+
   }
 
   getUser(id) {
