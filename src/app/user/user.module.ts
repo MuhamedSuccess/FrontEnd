@@ -5,6 +5,7 @@ import { AdminComponent } from './admin/admin.component';
 import { GuideComponent } from './guide/guide.component';
 import {Routes, RouterModule} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import {SharedModule} from '../shared/shared.module';
 const routes: Routes = [
   {path: 'admin', component: AdminComponent},
   {path: 'users', component: UserComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
+    SharedModule,
     CommonModule
   ]
 })
